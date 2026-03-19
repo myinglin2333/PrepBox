@@ -17,7 +17,7 @@ diyora.h@northeastern.edu
 - [PrepBox](https://prepbox-frontend.onrender.com/)
 - [Design Document](./documents/designDocument.pdf)
 - [Video Demonstration]()
-- [Google Slides]()
+- [Google Slides](./documents/prepBoxSlides.pdf)
 
 ## Project Objective
 PrepBox is a web application designed to help students and job seekers prepare for interviews.
