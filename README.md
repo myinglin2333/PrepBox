@@ -6,7 +6,8 @@
 **Helly Niteshbhai Diyora**
 diyora.h@northeastern.edu
 
-**Lili Mei Ye** meiye.l@northeastern.edu
+**Lili Mei Ye** 
+meiye.l@northeastern.edu
 
 ### Class Information
 - [CS5610 Web Development](https://johnguerra.co/classes/webDevelopment_online_spring_2026/index.html)
