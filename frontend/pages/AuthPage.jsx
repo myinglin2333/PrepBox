@@ -15,7 +15,7 @@ export default function AuthPage() {
     e.preventDefault();
     setMessage(null);
 
-    const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
+    const endpoint = isLogin ? "http://localhost:5001/api/auth/login" : "http://localhost:5001/api/auth/register";
     const body = isLogin
       ? { email: form.email, password: form.password }
       : form;

@@ -37,7 +37,7 @@ export default function Experience() {
 
   const fetchExperiences = async () => {
     try {
-      const res = await fetch("/api/experiences");
+      const res = await fetch("http://localhost:5001/api/experiences");
       if (!res.ok) return;
       const data = await res.json();
       setExperiences(data);
@@ -65,7 +65,7 @@ export default function Experience() {
     if (!requireAuth()) return;
     const user = getUser();
     try {
-      const res = await fetch("/api/experiences", {
+      const res = await fetch("http://localhost:5001/api/experiences", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, author: user.username }),
@@ -99,7 +99,7 @@ export default function Experience() {
   const handleDelete = async (id) => {
     if (!requireAuth()) return;
     try {
-      await fetch(`/api/experiences/${id}`, { method: "DELETE" });
+      await fetch(`http://localhost:5001/api/experiences/${id}`, { method: "DELETE" });
       fetchExperiences();
     } catch (err) {
       console.error("Failed to delete experience:", err);
@@ -110,7 +110,7 @@ export default function Experience() {
     if (!requireAuth()) return;
     const user = getUser();
     try {
-      await fetch(`/api/experiences/${expId}/replies`, {
+      await fetch(`http://localhost:5001/api/experiences/${expId}/replies`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ body: replyText, author: user.username }),
@@ -125,7 +125,7 @@ export default function Experience() {
     if (!requireAuth()) return;
     const user = getUser();
     try {
-      await fetch(`/api/experiences/${expId}/like`, {
+      await fetch(`http://localhost:5001/api/experiences/${expId}/like`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: user.username }),
