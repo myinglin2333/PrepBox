@@ -20,9 +20,18 @@ export default function Experience() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const navigate = useNavigate();
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   useEffect(() => {
     fetchExperiences();
   }, []);
+
+  // Return to the first page when switching categories
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory]);
 
   const getUser = () => JSON.parse(localStorage.getItem("user") || "null");
 
@@ -73,7 +82,7 @@ export default function Experience() {
   const handleUpdate = async (formData) => {
     if (!requireAuth()) return;
     try {
-      const res = await fetch(`/api/experiences/${editingExperience._id}`, {
+      await fetch(`/api/experiences/${editingExperience._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -142,6 +151,12 @@ export default function Experience() {
       ? experiences
       : experiences.filter((exp) => exp.category === selectedCategory);
 
+  // Pagination
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedExperiences = filteredExperiences.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
   return (
     <div>
       <div className="page-header">
@@ -180,12 +195,36 @@ export default function Experience() {
       )}
 
       <ExperienceList
-        experiences={filteredExperiences}
+        experiences={paginatedExperiences}
         onDelete={handleDelete}
         onEdit={handleEdit}
         onReply={handleReply}
         onLike={handleLike}
       />
+
+      {/* Pagination UI */}
+      <div style={{ textAlign: "center", marginTop: "2rem" }}>
+        <button
+          className="btn btn-secondary btn-small"
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
+        >
+          Prev
+        </button>
+
+        <span style={{ margin: "0 1rem" }}>
+          Page {currentPage}
+        </span>
+
+        <button
+          className="btn btn-secondary btn-small"
+          disabled={startIndex + itemsPerPage >= filteredExperiences.length}
+          onClick={() => setCurrentPage(currentPage + 1)}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
+
