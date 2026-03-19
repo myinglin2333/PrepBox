@@ -1,5 +1,9 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
+
 import { connectToDatabase } from "../db/mongo.js";
 import { ObjectId } from "mongodb";
+
 
 // Get date randomly 
 function getRandomDate(daysBack = 365) {
