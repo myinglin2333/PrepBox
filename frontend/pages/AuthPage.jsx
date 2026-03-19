@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE from "../src/config/api";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -15,7 +16,7 @@ export default function AuthPage() {
     e.preventDefault();
     setMessage(null);
 
-    const endpoint = isLogin ? "http://localhost:5001/api/auth/login" : "http://localhost:5001/api/auth/register";
+    const endpoint = isLogin ? `${API_BASE}/api/auth/login` : `${API_BASE}/api/auth/register`;
     const body = isLogin
       ? { email: form.email, password: form.password }
       : form;

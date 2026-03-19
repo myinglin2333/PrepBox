@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import QuestionForm from "../src/components/questionForm/questionForm.jsx";
 import QuestionList from "../src/components/questionList/questionList.jsx";
+import API_BASE from "../src/config/api.js";
 
 export default function QuestionsPage() {
   const [questions, setQuestions] = useState([]);
@@ -16,7 +17,7 @@ export default function QuestionsPage() {
   // Fetch
   const fetchQuestions = async () => {
     try {
-      const res = await fetch("/api/questions");
+      const res = await fetch(`${API_BASE}/api/questions`);
       const data = await res.json();
       setQuestions(data);
     } catch (err) {
@@ -36,7 +37,7 @@ export default function QuestionsPage() {
   // Add
   const handleAdd = async (formData) => {
     try {
-      const res = await fetch("/api/questions", {
+      const res = await fetch(`${API_BASE}/api/questions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, author: user?.username || "anonymous" }),
@@ -52,7 +53,7 @@ export default function QuestionsPage() {
   // Delete
   const handleDelete = async (id) => {
     try {
-      await fetch(`/api/questions/${id}`, { method: "DELETE" });
+      await fetch(`${API_BASE}/api/questions/${id}`, { method: "DELETE" });
       setQuestions(questions.filter((q) => q._id !== id));
     } catch (err) {
       console.error("Failed to delete:", err);
@@ -62,7 +63,7 @@ export default function QuestionsPage() {
   // Edit
   const handleEdit = async (updatedData) => {
     try {
-      const res = await fetch(`/api/questions/${editingQuestion._id}`, {
+      const res = await fetch(`${API_BASE}/api/questions/${editingQuestion._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedData),

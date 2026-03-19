@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ExperienceForm from "../src/components/experienceForm/experienceForm.jsx";
 import ExperienceList from "../src/components/experienceList/experienceList.jsx";
+import API_BASE from "../src/config/api.js";
 
 const CATEGORIES = [
   "All",
@@ -37,7 +38,7 @@ export default function Experience() {
 
   const fetchExperiences = async () => {
     try {
-      const res = await fetch("/api/experiences");
+      const res = await fetch(`${API_BASE}/api/experiences`);
       if (!res.ok) return;
       const data = await res.json();
       setExperiences(data);
@@ -65,7 +66,7 @@ export default function Experience() {
     if (!requireAuth()) return;
     const user = getUser();
     try {
-      const res = await fetch("/api/experiences", {
+      const res = await fetch(`${API_BASE}/api/experiences`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, author: user.username }),
@@ -82,7 +83,7 @@ export default function Experience() {
   const handleUpdate = async (formData) => {
     if (!requireAuth()) return;
     try {
-      await fetch(`/api/experiences/${editingExperience._id}`, {
+      await fetch(`${API_BASE}/api/experiences/${editingExperience._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -99,7 +100,7 @@ export default function Experience() {
   const handleDelete = async (id) => {
     if (!requireAuth()) return;
     try {
-      await fetch(`/api/experiences/${id}`, { method: "DELETE" });
+      await fetch(`${API_BASE}/api/experiences/${id}`, { method: "DELETE" });
       fetchExperiences();
     } catch (err) {
       console.error("Failed to delete experience:", err);
@@ -110,7 +111,7 @@ export default function Experience() {
     if (!requireAuth()) return;
     const user = getUser();
     try {
-      await fetch(`/api/experiences/${expId}/replies`, {
+      await fetch(`${API_BASE}/api/experiences/${expId}/replies`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ body: replyText, author: user.username }),
@@ -125,7 +126,7 @@ export default function Experience() {
     if (!requireAuth()) return;
     const user = getUser();
     try {
-      await fetch(`/api/experiences/${expId}/like`, {
+      await fetch(`${API_BASE}/api/experiences/${expId}/like`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: user.username }),
