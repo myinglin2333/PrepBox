@@ -15,7 +15,7 @@ diyora.h@northeastern.edu
 
 ### Links
 - [PrepBox]()
-- [Design Document]()
+- [Design Document](./documents/designDocument.pdf)
 - [Video Demonstration]()
 - [Google Slides]()
 
@@ -56,7 +56,17 @@ Login required for:
 - Posting, editing, and replying posts
 
 ## Screenshots
+### Home Page
+![Home](documents/Home.png)
 
+### Questions Page
+![Questions](documents/Questions.png)
+
+### Experiences Page
+![Experiences](documents/Experiences.png)
+
+### Login/Register Page
+![Login](documents/Login.png)
 
 
 ## Project Structure
