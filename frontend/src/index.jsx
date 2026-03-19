@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Home from "../pages/Home.jsx";
 import AuthPage from "../pages/AuthPage.jsx";
@@ -10,7 +10,7 @@ import "./index.css";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Navbar />
       <main className="main-content">
         <Routes>
@@ -30,7 +30,7 @@ function App() {
           <p className="footer-course">CS5610 Web Development · Spring 2026 · Northeastern University</p>
         </div>
       </footer>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
