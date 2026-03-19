@@ -115,6 +115,9 @@ PrepBox/
 │ ├── package.json               # Backend dependencies
 │ └── env.example                # Environment variables template
 │
+│
+│── documents/                   # Folder to store screenshots & design document
+│
 ├── .gitignore                   # Git ignore rules
 ├── LICENSE                      # MIT License
 └── README.md                    # Project documentation
