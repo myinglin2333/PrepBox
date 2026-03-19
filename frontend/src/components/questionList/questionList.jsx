@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function QuestionList({ questions, onDelete, onEdit }) {
   const user = JSON.parse(localStorage.getItem("user") || "null");
@@ -65,3 +66,27 @@ export default function QuestionList({ questions, onDelete, onEdit }) {
     </div>
   );
 }
+
+QuestionList.propTypes = {
+  questions: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      category: PropTypes.string,
+      question: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      createdAt: PropTypes.string,
+      answers: PropTypes.arrayOf(
+        PropTypes.shape({
+          _id: PropTypes.string.isRequired,
+          body: PropTypes.string.isRequired,
+          author: PropTypes.string,
+          createdAt: PropTypes.string,
+        })
+      ),
+    })
+  ).isRequired,
+
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+};

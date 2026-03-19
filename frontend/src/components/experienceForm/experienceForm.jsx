@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import "./experienceForm.css";
 
 export default function ExperienceForm({ initialData, onSubmit, onCancel, isEditing }) {
@@ -79,3 +80,14 @@ export default function ExperienceForm({ initialData, onSubmit, onCancel, isEdit
     </div>
   );
 }
+
+ExperienceForm.propTypes = {
+  initialData: PropTypes.shape({
+    title: PropTypes.string,
+    category: PropTypes.string,
+    body: PropTypes.string,
+  }),
+  onSubmit: PropTypes.func.isRequired,
+  onCancel: PropTypes.func,
+  isEditing: PropTypes.bool,
+};

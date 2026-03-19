@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 export default function QuestionForm({ initialData, onSubmit, onCancel, isEditing }) {
   const [form, setForm] = useState({
@@ -95,3 +96,15 @@ export default function QuestionForm({ initialData, onSubmit, onCancel, isEditin
     </div>
   );
 }
+
+QuestionForm.propTypes = {
+  initialData: PropTypes.shape({
+    title: PropTypes.string,
+    question: PropTypes.string,
+    answer: PropTypes.string,
+    category: PropTypes.string,
+  }),
+  onSubmit: PropTypes.func.isRequired,
+  onCancel: PropTypes.func,
+  isEditing: PropTypes.bool,
+};

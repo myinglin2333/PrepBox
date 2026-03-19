@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import "./experienceList.css";
 
 export default function ExperienceList({ experiences, onDelete, onEdit, onReply, onLike }) {
@@ -89,3 +90,30 @@ export default function ExperienceList({ experiences, onDelete, onEdit, onReply,
     </div>
   );
 }
+
+ExperienceList.propTypes = {
+  experiences: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      category: PropTypes.string,
+      body: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      createdAt: PropTypes.string,
+      likes: PropTypes.arrayOf(PropTypes.string),
+      replies: PropTypes.arrayOf(
+        PropTypes.shape({
+          _id: PropTypes.string.isRequired,
+          body: PropTypes.string.isRequired,
+          author: PropTypes.string.isRequired,
+          createdAt: PropTypes.string,
+        })
+      ),
+    })
+  ).isRequired,
+
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onReply: PropTypes.func.isRequired,
+  onLike: PropTypes.func.isRequired,
+};
