@@ -14,7 +14,7 @@ diyora.h@northeastern.edu
 - Northeastern University
 
 ### Links
-- [PrepBox]()
+- [PrepBox](https://prepbox-frontend.onrender.com/)
 - [Design Document](./documents/designDocument.pdf)
 - [Video Demonstration]()
 - [Google Slides]()
@@ -39,7 +39,7 @@ The goal of PrepBox is to:
 ## Features
 ### Questions & Answers
 - Add interview questions
-- Edit and delte questions
+- Edit and delete questions
 - Browse questions by category
 - View sample answers
 

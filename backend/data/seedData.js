@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-dotenv.config({ path: "./.env" });
+dotenv.config();
 
 import { connectToDatabase } from "../db/mongo.js";
 import { ObjectId } from "mongodb";
@@ -229,3 +229,6 @@ seed().catch((err) => {
   console.error(err);
   process.exit(1);
 });
+
+
+console.log("URI:", process.env.MONGODB_URI);
