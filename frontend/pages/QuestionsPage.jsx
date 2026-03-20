@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import QuestionForm from "../src/components/questionForm/questionForm.jsx";
 import QuestionList from "../src/components/questionList/questionList.jsx";
@@ -7,6 +8,7 @@ export default function QuestionsPage() {
   const [questions, setQuestions] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [editingQuestion, setEditingQuestion] = useState(null);
+  const navigate = useNavigate();
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -82,7 +84,7 @@ export default function QuestionsPage() {
   const handleAddClick = () => {
     if (!user) {
       alert("Please log in to perform this action.");
-      window.location.href = "/auth";
+      navigate("/auth");
       return;
     }
     setEditingQuestion({});
