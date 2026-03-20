@@ -24,21 +24,33 @@ export default function QuestionList({ questions, onDelete, onEdit }) {
 
           <p><strong>Q:</strong> {q.question}</p>
 
-          {q.answers && q.answers.length > 0 && (
+          {/* display answers */}
+          {(q.answers?.length > 0 || q.answer) && (
             <div>
               <strong>A:</strong>
-              {q.answers.map((a) => (
-                <span key={a._id} style={{ marginLeft: "0.5rem"}}>
+
+              {/* old data（seed） */}
+              {q.answers?.map((a) => (
+                <span key={a._id} style={{ marginLeft: "0.5rem" }}>
                   {a.body}
                 </span>
               ))}
+
+              {/* new data */}
+              {q.answer && (
+                <span style={{ marginLeft: "0.5rem" }}>
+                  {q.answer}
+                </span>
+              )}
             </div>
           )}
 
           <div className="card-meta">
             <span>👤 {q.author}</span>
             <span>
-              📅 {q.createdAt ? new Date(q.createdAt).toLocaleDateString() : ""}
+              📅 {q.createdAt
+                ? new Date(q.createdAt).toLocaleDateString()
+                : ""}
             </span>
           </div>
 
@@ -67,6 +79,7 @@ export default function QuestionList({ questions, onDelete, onEdit }) {
   );
 }
 
+/* PropTypes */
 QuestionList.propTypes = {
   questions: PropTypes.arrayOf(
     PropTypes.shape({
@@ -76,6 +89,9 @@ QuestionList.propTypes = {
       question: PropTypes.string.isRequired,
       author: PropTypes.string.isRequired,
       createdAt: PropTypes.string,
+
+      answer: PropTypes.string,
+
       answers: PropTypes.arrayOf(
         PropTypes.shape({
           _id: PropTypes.string.isRequired,
