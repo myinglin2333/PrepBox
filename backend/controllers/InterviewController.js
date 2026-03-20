@@ -1,10 +1,11 @@
 import { getDb } from "../db/mongo.js";
 import { ObjectId } from "mongodb";
 
-// Get all questions
+/* Get all questions */
 export async function getAllQuestions(req, res) {
   try {
     const db = getDb();
+
     const questions = await db
       .collection("questions")
       .find()
@@ -17,10 +18,10 @@ export async function getAllQuestions(req, res) {
   }
 }
 
-// Create a new question
+/* Create */
 export async function createQuestion(req, res) {
   try {
-    const { title, category, question, author } = req.body;
+    const { title, category, question, answer, author } = req.body;
     const db = getDb();
 
     const newQuestion = {
@@ -28,7 +29,18 @@ export async function createQuestion(req, res) {
       category: category || "General",
       question,
       author: author || "Anonymous",
-      answers: [],
+
+      answers: answer
+        ? [
+            {
+              _id: new ObjectId(),
+              body: answer,
+              author: author || "Anonymous",
+              createdAt: new Date(),
+            },
+          ]
+        : [],
+
       createdAt: new Date(),
     };
 
@@ -40,7 +52,7 @@ export async function createQuestion(req, res) {
   }
 }
 
-// Add an answer to a question
+/* Add answer */
 export async function addAnswer(req, res) {
   try {
     const { id } = req.params;
@@ -65,7 +77,7 @@ export async function addAnswer(req, res) {
   }
 }
 
-// Delete a question
+/* Delete */
 export async function deleteQuestion(req, res) {
   try {
     const { id } = req.params;
@@ -81,7 +93,7 @@ export async function deleteQuestion(req, res) {
   }
 }
 
-// Update a question
+/* Update */
 export async function updateQuestion(req, res) {
   try {
     const { id } = req.params;
