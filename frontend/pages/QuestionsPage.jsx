@@ -69,15 +69,10 @@ export default function QuestionsPage() {
         body: JSON.stringify(updatedData),
       });
 
-      const data = await res.json();
-
-      setQuestions(
-        questions.map((q) =>
-          q._id === editingQuestion._id ? data : q
-        )
-      );
-
-      setEditingQuestion(null);
+      if (res.ok) {
+        setEditingQuestion(null);
+        fetchQuestions();
+      }
     } catch (err) {
       console.error("Failed to update:", err);
     }

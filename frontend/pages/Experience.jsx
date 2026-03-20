@@ -83,7 +83,7 @@ export default function Experience() {
   const handleUpdate = async (formData) => {
     if (!requireAuth()) return;
     try {
-      await fetch(`${API_BASE}/api/experiences/${editingExperience._id}`, {
+      const res = await fetch(`${API_BASE}/api/experiences/${editingExperience._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
