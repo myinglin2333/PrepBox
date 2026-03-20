@@ -17,7 +17,7 @@ meiye.l@northeastern.edu
 ### Links
 - [PrepBox](https://prepbox-frontend.onrender.com/)
 - [Design Document](./documents/designDocument.pdf)
-- [Video Demonstration]()
+- [Video Demonstration](https://youtu.be/IjTaETGWBCk?feature=shared)
 - [Google Slides](./documents/prepBoxSlides.pdf)
 
 ## Project Objective
