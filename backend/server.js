@@ -1,5 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
+import session from "express-session";
+import passport from "passport";
+import "./config/passport.js";
 import { connectToDatabase } from "./db/mongo.js";
 import authRoutes from "./routes/auth.js";
 import questionsRoutes from "./routes/InterviewQuestions.js";
@@ -12,6 +15,16 @@ const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(express.json());
+app.use(
+  session({
+    secret: "prepbox-secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
