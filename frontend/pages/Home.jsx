@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   const user = JSON.parse(localStorage.getItem("user") || "null");
-
+  
   return (
     <div>
       <section className="hero">
@@ -13,6 +13,7 @@ export default function Home() {
           experiences, and learn from the community.
         </p>
 
+        {/* I think we could do something a bit more clean than this like just take the code out of this HTML and put it into the code part outside the return statement for cleaner code/legibility */}
         {user ? (
           <div className="logged-in-banner">
             <p>👋 Welcome back, <strong>{user.username}</strong>!</p>
@@ -41,6 +42,7 @@ export default function Home() {
       </section>
 
       {/* How to Use Section */}
+      {/* I think you could have used react compnents for the cards so you can change their structure easier and read this better */}
       <section className="how-to-use">
         <h2>How to Use PrepBox</h2>
         <div className="steps-grid">
