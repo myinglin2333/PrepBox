@@ -165,3 +165,20 @@ http://localhost:5173
 This project is licensed under the **MIT License**.
 
 See the [MIT License](LICENSE) file for details
+
+---
+
+## Peer Review
+
+*Reviewed by [Jinam Shah](https://github.com/Jinam-Shah) as part of CS5610 Spring 2026 peer review.*
+
+**What stood out:** The like/unlike and replies feature on the Experiences page is
+genuinely impressive - it makes the app feel like a real community platform. 
+Code organization, PropTypes, and CSS-per-component structure are all on point.
+
+**Suggested fixes (see PRs):**
+- Added `"Marketing"` to the Experiences filter chip array to match the form dropdown.
+- Removed empty `authForm` and `registerForm` placeholder files that exported `null`.
+
+**One thing to look into:**
+- The rubric requires authentication to be implemented using **Passport.js** (`passport-local` strategy, `passport.initialize()`, `passport.session()`). Current auth uses a plain fetch + localStorage approach, which works great for UX but may not satisfy that rubric criteria.
