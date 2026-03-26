@@ -4,12 +4,25 @@ import ExperienceForm from "../src/components/experienceForm/experienceForm.jsx"
 import ExperienceList from "../src/components/experienceList/experienceList.jsx";
 import API_BASE from "../src/config/api.js";
 
+// Before
 const CATEGORIES = [
   "All",
   "Software Engineering",
   "Data Science",
   "Product Management",
   "Design",
+  "Finance",
+  "General",
+];
+
+// After
+const CATEGORIES = [
+  "All",
+  "Software Engineering",
+  "Data Science",
+  "Product Management",
+  "Design",
+  "Marketing",   // ← added to match ExperienceForm dropdown option
   "Finance",
   "General",
 ];
