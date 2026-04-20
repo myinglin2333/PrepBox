@@ -5,6 +5,7 @@ import QuestionList from "../src/components/questionList/questionList.jsx";
 export default function QuestionsPage() {
   const [questions, setQuestions] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [showForm, setShowForm] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState(null);
 
   // Pagination
@@ -33,6 +34,11 @@ export default function QuestionsPage() {
     setCurrentPage(1);
   }, [selectedCategory]);
 
+  // Scroll back to the top when switch pages
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth"});
+  }, [currentPage]);
+
   // Add
   const handleAdd = async (formData) => {
     try {
@@ -43,7 +49,8 @@ export default function QuestionsPage() {
       });
 
       const data = await res.json();
-      setQuestions([data, ...questions]);
+      setQuestions((prev) => [data, ...prev]);
+      setShowForm(false);
     } catch (err) {
       console.error("Failed to add question:", err);
     }
@@ -67,16 +74,10 @@ export default function QuestionsPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedData),
       });
-
-      const data = await res.json();
-
-      setQuestions(
-        questions.map((q) =>
-          q._id === editingQuestion._id ? data : q
-        )
-      );
-
+      
+      await fetchQuestions();
       setEditingQuestion(null);
+      alert("Your post has been updated successfully.");
     } catch (err) {
       console.error("Failed to update:", err);
     }
@@ -89,7 +90,32 @@ export default function QuestionsPage() {
       window.location.href = "/auth";
       return;
     }
-    setEditingQuestion({});
+    setEditingQuestion(null);
+    setShowForm(!showForm);
+  };
+
+  // Reply to post
+  const handleReply = async (questionId, replyText) => {
+    if (!user) {
+      alert("Please log in to perform this action.");
+      window.location.href = "/auth";
+      return;
+    }
+
+    try {
+      await fetch(`/api/questions/${questionId}/answers`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          body: replyText,
+          author: user?.username || "anonymous",
+        }),
+      });
+
+      fetchQuestions();
+    } catch (err) {
+      console.error("Failed to add reply:", err);
+    }
   };
 
   // Filter
@@ -109,14 +135,28 @@ export default function QuestionsPage() {
     <div>
       <div className="page-header">
         <h1>Interview Questions</h1>
-        <button className="btn btn-primary" onClick={handleAddClick}>
-          + Add Question
-        </button>
+        {!editingQuestion && (
+          <button className="btn btn-primary" onClick={handleAddClick}>
+            {showForm ? "Cancel" : "+ Add a Question"}
+          </button>
+        )}
       </div>
 
       {/* Category */}
       <div className="category-filter">
-        {["All", "Behavioral", "Technical", "System Design", "General"].map((cat) => (
+        {["All", 
+          "Behavioral", 
+          "Technical", 
+          "System Design", 
+          "General",
+          "Data Science",
+          "Product Management",
+          "Consulting",
+          "Finance",
+          "Marketing",
+          "Internship",
+          "New Grad",
+          "Other"].map((cat) => (
           <button
             key={cat}
             className={`filter-chip ${selectedCategory === cat ? "active" : ""}`}
@@ -128,12 +168,21 @@ export default function QuestionsPage() {
       </div>
 
       {/* Form */}
+      {showForm && !editingQuestion && (
+        <QuestionForm
+          initialData={null}
+          onSubmit={handleAdd}
+          onCancel={() => setShowForm(false)}
+          isEditing={false}
+        />
+      )}
+
       {editingQuestion && (
         <QuestionForm
-          initialData={editingQuestion._id ? editingQuestion : null}
-          onSubmit={editingQuestion._id ? handleEdit : handleAdd}
+          initialData={editingQuestion}
+          onSubmit={handleEdit}
           onCancel={() => setEditingQuestion(null)}
-          isEditing={!!editingQuestion._id}
+          isEditing={true}
         />
       )}
 
@@ -141,7 +190,16 @@ export default function QuestionsPage() {
       <QuestionList
         questions={paginatedQuestions}
         onDelete={handleDelete}
-        onEdit={(q) => setEditingQuestion(q)}
+        onEdit={(q) => {
+          setEditingQuestion(q);
+          setShowForm(false);
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          })
+        }}
+        onReply={handleReply}
       />
 
       {/* Pagination */}

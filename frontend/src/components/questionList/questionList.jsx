@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
-export default function QuestionList({ questions, onDelete, onEdit }) {
-  const user = JSON.parse(localStorage.getItem("user") || "null");
+export default function QuestionList({ questions, onDelete, onEdit, onReply }) {
+  const [replyText, setReplyText] = useState({});
+  const currentUser = JSON.parse(localStorage.getItem("user") || "null");
+
+  const requireLogin = () => {
+    alert("Please log in to reply to posts.");
+    window.location.href = "/auth";
+  };
+
+  const handleReply = (questionId) => {
+    if (!currentUser) {
+      requireLogin();
+      return;
+    }
+
+    const text = replyText[questionId];
+    if (!text?.trim()) return;
+
+    onReply(questionId, text);
+    setReplyText({ ...replyText, [questionId]: "" });
+  };
 
   if (questions.length === 0) {
     return (
@@ -23,17 +42,6 @@ export default function QuestionList({ questions, onDelete, onEdit }) {
 
           <p><strong>Q:</strong> {q.question}</p>
 
-          {q.answers && q.answers.length > 0 && (
-            <div>
-              <strong>A:</strong>
-              {q.answers.map((a) => (
-                <span key={a._id} style={{ marginLeft: "0.5rem"}}>
-                  {a.body}
-                </span>
-              ))}
-            </div>
-          )}
-
           <div className="card-meta">
             <span>👤 {q.author}</span>
             <span>
@@ -42,7 +50,7 @@ export default function QuestionList({ questions, onDelete, onEdit }) {
           </div>
 
           <div className="card-actions">
-            {user && user.username === q.author && (
+            {currentUser && currentUser.username === q.author && (
               <>
                 <button
                   className="btn btn-secondary btn-small"
@@ -50,7 +58,6 @@ export default function QuestionList({ questions, onDelete, onEdit }) {
                 >
                   Edit
                 </button>
-
                 <button
                   className="btn btn-danger btn-small"
                   onClick={() => onDelete(q._id)}
@@ -59,6 +66,38 @@ export default function QuestionList({ questions, onDelete, onEdit }) {
                 </button>
               </>
             )}
+          </div>
+
+          <div className="replies-section">
+            <strong>{q.answers?.length || 0} Replies</strong>
+
+            {q.answers?.map((a) => (
+              <div className="reply" key={a._id}>
+                <span className="reply-author">{a.author}:</span>
+                {a.body}
+              </div>
+            ))}
+
+            <div className="reply-input-row">
+              <input
+                type="text"
+                placeholder="Write a reply..."
+                value={replyText[q._id] || ""}
+                onChange={(e) =>
+                  setReplyText({ ...replyText, [q._id]: e.target.value })
+                }
+                onFocus={() => {
+                  if (!currentUser) requireLogin();
+                }}
+                readOnly={!currentUser}
+              />
+              <button
+                className="btn btn-primary btn-small"
+                onClick={() => handleReply(q._id)}
+              >
+                Reply
+              </button>
+            </div>
           </div>
         </div>
       ))}

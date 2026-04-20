@@ -82,15 +82,17 @@ export default function Experience() {
   const handleUpdate = async (formData) => {
     if (!requireAuth()) return;
     try {
-      await fetch(`/api/experiences/${editingExperience._id}`, {
+      const res = await fetch(`/api/experiences/${editingExperience._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      if (res.ok) {
-        setEditingExperience(null);
-        fetchExperiences();
+      if (!res.ok) {
+        throw new Error("Failed to update experience");
       }
+      await fetchExperiences();
+      setEditingExperience(null);
+      alert("Your post has been updated successfully.");
     } catch (err) {
       console.error("Failed to update experience:", err);
     }
@@ -140,6 +142,11 @@ export default function Experience() {
     if (!requireAuth()) return;
     setEditingExperience(exp);
     setShowForm(false);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleCancelEdit = () => {
