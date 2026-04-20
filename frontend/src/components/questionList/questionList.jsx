@@ -7,7 +7,7 @@ export default function QuestionList({ questions, onDelete, onEdit, onReply }) {
 
   const requireLogin = () => {
     alert("Please log in to reply to posts.");
-    window.location.href = "/auth";
+    window.location.hash = "#/auth";
   };
 
   const handleReply = (questionId) => {
@@ -89,8 +89,11 @@ export default function QuestionList({ questions, onDelete, onEdit, onReply }) {
                 onChange={(e) =>
                   setReplyText({ ...replyText, [q._id]: e.target.value })
                 }
-                onFocus={() => {
-                  if (!currentUser) requireLogin();
+                onMouseDown={(e) => {
+                  if (!currentUser) {
+                    e.preventDefault();
+                    requireLogin();
+                  }
                 }}
                 readOnly={!currentUser}
               />

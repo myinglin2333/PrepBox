@@ -101,12 +101,12 @@ export default function QuestionsPage() {
   const handleReply = async (questionId, replyText) => {
     if (!user) {
       alert("Please log in to perform this action.");
-      window.location.href = "/auth";
+      window.location.hash = "#/auth";
       return;
     }
 
     try {
-      await fetch(`/api/questions/${questionId}/answers`, {
+      await fetch(`${API_BASE}/api/questions/${questionId}/answers`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
