@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 export default function QuestionList({ questions, onDelete, onEdit, onReply }) {
@@ -42,17 +42,6 @@ export default function QuestionList({ questions, onDelete, onEdit, onReply }) {
           )}
 
           <p><strong>Q:</strong> {q.question}</p>
-
-          {q.answers && q.answers.length > 0 && (
-            <div>
-              <strong>A:</strong>
-              {q.answers.map((a) => (
-                <span key={a._id} style={{ marginLeft: "0.5rem"}}>
-                  {a.body}
-                </span>
-              ))}
-            </div>
-          )}
 
           <div className="card-meta">
             <span>👤 {q.author}</span>
@@ -119,7 +108,6 @@ export default function QuestionList({ questions, onDelete, onEdit, onReply }) {
   );
 }
 
-/* PropTypes */
 QuestionList.propTypes = {
   questions: PropTypes.arrayOf(
     PropTypes.shape({
@@ -129,9 +117,6 @@ QuestionList.propTypes = {
       question: PropTypes.string.isRequired,
       author: PropTypes.string.isRequired,
       createdAt: PropTypes.string,
-
-      answer: PropTypes.string,
-
       answers: PropTypes.arrayOf(
         PropTypes.shape({
           _id: PropTypes.string.isRequired,
@@ -142,7 +127,7 @@ QuestionList.propTypes = {
       ),
     })
   ).isRequired,
-
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
+  onReply: PropTypes.func.isRequired,
 };
