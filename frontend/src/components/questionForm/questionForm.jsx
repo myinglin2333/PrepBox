@@ -1,25 +1,30 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-export default function QuestionForm({ initialData, onSubmit, onCancel, isEditing }) {
+export default function QuestionForm({
+  initialData,
+  onSubmit,
+  onCancel,
+  isEditing,
+}) {
   const [form, setForm] = useState({
-    title: "",
-    question: "",
-    category: "General",
+    title: '',
+    question: '',
+    category: 'General',
   });
 
   useEffect(() => {
     if (initialData) {
       setForm({
-        title: initialData.title || "",
-        question: initialData.question || "",
-        category: initialData.category || "General",
+        title: initialData.title || '',
+        question: initialData.question || '',
+        category: initialData.category || 'General',
       });
     } else {
       setForm({
-        title: "",
-        question: "",
-        category: "General",
+        title: '',
+        question: '',
+        category: 'General',
       });
     }
   }, [initialData]);
@@ -28,33 +33,34 @@ export default function QuestionForm({ initialData, onSubmit, onCancel, isEditin
     e.preventDefault();
     onSubmit(form);
     if (!isEditing) {
-      setForm({ title: "", question: "", category: "General" });
+      setForm({ title: '', question: '', category: 'General' });
     }
   };
 
   const categories = [
-    "Behavioral",
-    "Technical",
-    "System Design",
-    "General",
-    "Data Science",
-    "Product Management",
-    "Consulting",
-    "Finance",
-    "Marketing",
-    "Internship",
-    "New Grad",
-    "Other"
+    'Behavioral',
+    'Technical',
+    'System Design',
+    'General',
+    'Data Science',
+    'Product Management',
+    'Consulting',
+    'Finance',
+    'Marketing',
+    'Internship',
+    'New Grad',
+    'Other',
   ];
 
   return (
     <div className="card">
-      <h3>{isEditing ? "Edit Question" : "Add a Question"}</h3>
+      <h3>{isEditing ? 'Edit Question' : 'Add a Question'}</h3>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Title</label>
+          <label htmlFor="question-title">Title</label>
           <input
+            id="question-title"
             type="text"
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
@@ -64,8 +70,9 @@ export default function QuestionForm({ initialData, onSubmit, onCancel, isEditin
         </div>
 
         <div className="form-group">
-          <label>Question</label>
+          <label htmlFor="question-body">Question</label>
           <textarea
+            id="question-body"
             value={form.question}
             onChange={(e) => setForm({ ...form, question: e.target.value })}
             placeholder="Enter your interview question..."
@@ -74,8 +81,9 @@ export default function QuestionForm({ initialData, onSubmit, onCancel, isEditin
         </div>
 
         <div className="form-group">
-          <label>Category</label>
+          <label htmlFor="question-category">Category</label>
           <select
+            id="question-category"
             value={form.category}
             onChange={(e) => setForm({ ...form, category: e.target.value })}
           >
@@ -89,7 +97,7 @@ export default function QuestionForm({ initialData, onSubmit, onCancel, isEditin
 
         <div className="experience-form-actions">
           <button type="submit" className="btn btn-primary">
-            {isEditing ? "Save Changes" : "Add a Question"}
+            {isEditing ? 'Save Changes' : 'Add a Question'}
           </button>
 
           {onCancel && (
@@ -111,7 +119,6 @@ QuestionForm.propTypes = {
   initialData: PropTypes.shape({
     title: PropTypes.string,
     question: PropTypes.string,
-    answer: PropTypes.string,
     category: PropTypes.string,
   }),
   onSubmit: PropTypes.func.isRequired,

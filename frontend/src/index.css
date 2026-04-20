@@ -79,9 +79,13 @@ body {
   border-radius: 14px;
   padding: 1.5rem;
   margin-bottom: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.04);
   border: 1px solid #e7e5e4;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .card:hover {
@@ -192,7 +196,9 @@ body {
   border-radius: 10px;
   font-size: 0.95rem;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   background: #fff;
   color: #0f172a;
 }
@@ -543,7 +549,9 @@ body {
   background: #fff;
   border-radius: 14px;
   padding: 1.5rem 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.04);
   border: 1px solid #e7e5e4;
 }
 

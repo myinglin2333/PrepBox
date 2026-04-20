@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import ExperienceForm from "../src/components/experienceForm/experienceForm.jsx";
-import ExperienceList from "../src/components/experienceList/experienceList.jsx";
-import API_BASE from "../src/config/api.js";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ExperienceForm from '../src/components/experienceForm/experienceForm.jsx';
+import ExperienceList from '../src/components/experienceList/experienceList.jsx';
+import API_BASE from '../src/config/api.js';
 
 const CATEGORIES = [
-  "All",
-  "Software Engineering",
-  "Data Science",
-  "Product Management",
-  "Design",
-  "Finance",
-  "General",
+  'All',
+  'Software Engineering',
+  'Data Science',
+  'Product Management',
+  'Design',
+  'Finance',
+  'General',
 ];
 
 export default function Experience() {
   const [experiences, setExperiences] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingExperience, setEditingExperience] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const navigate = useNavigate();
 
   // Pagination
@@ -36,10 +36,10 @@ export default function Experience() {
 
   // Scroll back to the top when switch pages
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth"});
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
 
-  const getUser = () => JSON.parse(localStorage.getItem("user") || "null");
+  const getUser = () => JSON.parse(localStorage.getItem('user') || 'null');
 
   const fetchExperiences = async () => {
     try {
@@ -48,15 +48,15 @@ export default function Experience() {
       const data = await res.json();
       setExperiences(data);
     } catch (err) {
-      console.error("Failed to fetch experiences:", err);
+      console.error('Failed to fetch experiences:', err);
     }
   };
 
   const requireAuth = () => {
     const user = getUser();
     if (!user) {
-      alert("Please log in to perform this action.");
-      navigate("/auth");
+      alert('Please log in to perform this action.');
+      navigate('/auth');
       return false;
     }
     return true;
@@ -72,8 +72,8 @@ export default function Experience() {
     const user = getUser();
     try {
       const res = await fetch(`${API_BASE}/api/experiences`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, author: user.username }),
       });
       if (res.ok) {
@@ -81,36 +81,39 @@ export default function Experience() {
         fetchExperiences();
       }
     } catch (err) {
-      console.error("Failed to create experience:", err);
+      console.error('Failed to create experience:', err);
     }
   };
 
   const handleUpdate = async (formData) => {
     if (!requireAuth()) return;
     try {
-      const res = await fetch(`${API_BASE}/api/experiences/${editingExperience._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `${API_BASE}/api/experiences/${editingExperience._id}`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        }
+      );
       if (!res.ok) {
-        throw new Error("Failed to update experience");
+        throw new Error('Failed to update experience');
       }
       await fetchExperiences();
       setEditingExperience(null);
-      alert("Your post has been updated successfully.");
+      alert('Your post has been updated successfully.');
     } catch (err) {
-      console.error("Failed to update experience:", err);
+      console.error('Failed to update experience:', err);
     }
   };
 
   const handleDelete = async (id) => {
     if (!requireAuth()) return;
     try {
-      await fetch(`${API_BASE}/api/experiences/${id}`, { method: "DELETE" });
+      await fetch(`${API_BASE}/api/experiences/${id}`, { method: 'DELETE' });
       fetchExperiences();
     } catch (err) {
-      console.error("Failed to delete experience:", err);
+      console.error('Failed to delete experience:', err);
     }
   };
 
@@ -119,13 +122,13 @@ export default function Experience() {
     const user = getUser();
     try {
       await fetch(`${API_BASE}/api/experiences/${expId}/replies`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ body: replyText, author: user.username }),
       });
       fetchExperiences();
     } catch (err) {
-      console.error("Failed to add reply:", err);
+      console.error('Failed to add reply:', err);
     }
   };
 
@@ -134,13 +137,13 @@ export default function Experience() {
     const user = getUser();
     try {
       await fetch(`${API_BASE}/api/experiences/${expId}/like`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: user.username }),
       });
       fetchExperiences();
     } catch (err) {
-      console.error("Failed to like experience:", err);
+      console.error('Failed to like experience:', err);
     }
   };
 
@@ -151,7 +154,7 @@ export default function Experience() {
 
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
 
@@ -160,7 +163,7 @@ export default function Experience() {
   };
 
   const filteredExperiences =
-    selectedCategory === "All"
+    selectedCategory === 'All'
       ? experiences
       : experiences.filter((exp) => exp.category === selectedCategory);
 
@@ -176,7 +179,7 @@ export default function Experience() {
         <h1>Interview Experiences</h1>
         {!editingExperience && (
           <button className="btn btn-primary" onClick={handleShareClick}>
-            {showForm ? "Cancel" : "+ Share Experience"}
+            {showForm ? 'Cancel' : '+ Share Experience'}
           </button>
         )}
       </div>
@@ -186,7 +189,7 @@ export default function Experience() {
         {CATEGORIES.map((cat) => (
           <button
             key={cat}
-            className={`filter-chip ${selectedCategory === cat ? "active" : ""}`}
+            className={`filter-chip ${selectedCategory === cat ? 'active' : ''}`}
             onClick={() => setSelectedCategory(cat)}
           >
             {cat}
@@ -216,7 +219,7 @@ export default function Experience() {
       />
 
       {/* Pagination UI */}
-      <div style={{ textAlign: "center", marginTop: "2rem" }}>
+      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
         <button
           className="btn btn-secondary btn-small"
           disabled={currentPage === 1}
@@ -225,9 +228,7 @@ export default function Experience() {
           Prev
         </button>
 
-        <span style={{ margin: "0 1rem" }}>
-          Page {currentPage}
-        </span>
+        <span style={{ margin: '0 1rem' }}>Page {currentPage}</span>
 
         <button
           className="btn btn-secondary btn-small"
@@ -240,4 +241,3 @@ export default function Experience() {
     </div>
   );
 }
-

@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
-  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
 
   return (
     <div>
@@ -15,7 +15,9 @@ export default function Home() {
 
         {user ? (
           <div className="logged-in-banner">
-            <p>👋 Welcome back, <strong>{user.username}</strong>!</p>
+            <p>
+              👋 Welcome back, <strong>{user.username}</strong>!
+            </p>
             <div className="hero-buttons">
               <Link to="/experiences" className="btn btn-primary">
                 Share an Experience
@@ -33,9 +35,9 @@ export default function Home() {
             <Link to="/experiences" className="btn btn-secondary">
               Browse Experiences
             </Link>
-              <Link to="/questions" className="btn btn-secondary">
-                Browse Questions
-              </Link>
+            <Link to="/questions" className="btn btn-secondary">
+              Browse Questions
+            </Link>
           </div>
         )}
       </section>
@@ -47,22 +49,34 @@ export default function Home() {
           <div className="step-card">
             <div className="step-number">1</div>
             <h3>Create an Account</h3>
-            <p>Register with a username, email, and password to get started. Or log in with an existing account.</p>
+            <p>
+              Register with a username, email, and password to get started. Or
+              log in with an existing account.
+            </p>
           </div>
           <div className="step-card">
             <div className="step-number">2</div>
             <h3>Browse Experiences</h3>
-            <p>Read real interview experiences shared by the community. Filter by category to find relevant stories.</p>
+            <p>
+              Read real interview experiences shared by the community. Filter by
+              category to find relevant stories.
+            </p>
           </div>
           <div className="step-card">
             <div className="step-number">3</div>
             <h3>Share Your Story</h3>
-            <p>Share your own interview experience to help others prepare. Add a title, category, and description.</p>
+            <p>
+              Share your own interview experience to help others prepare. Add a
+              title, category, and description.
+            </p>
           </div>
           <div className="step-card">
             <div className="step-number">4</div>
             <h3>Engage & Discuss</h3>
-            <p>Reply to experiences, ask follow-up questions, and build a supportive community of job seekers.</p>
+            <p>
+              Reply to experiences, ask follow-up questions, and build a
+              supportive community of job seekers.
+            </p>
           </div>
         </div>
       </section>
@@ -72,7 +86,9 @@ export default function Home() {
         <div className="card feature-card">
           <div className="icon">💡</div>
           <h3>Interview Questions</h3>
-          <p>Browse and contribute interview questions with community answers.</p>
+          <p>
+            Browse and contribute interview questions with community answers.
+          </p>
         </div>
         <div className="card feature-card">
           <div className="icon">📝</div>
@@ -94,7 +110,10 @@ export default function Home() {
           <div className="demo-credentials">
             <code>Username: user1 — user10 &nbsp;|&nbsp; Password: 123456</code>
           </div>
-          <p className="demo-note">Example: Log in with email <strong>user1@example.com</strong> and password <strong>123456</strong></p>
+          <p className="demo-note">
+            Example: Log in with email <strong>user1@example.com</strong> and
+            password <strong>123456</strong>
+          </p>
         </div>
       </section>
     </div>

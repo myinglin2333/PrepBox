@@ -1,20 +1,31 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import "./experienceForm.css";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import './experienceForm.css';
 
-export default function ExperienceForm({ initialData, onSubmit, onCancel, isEditing }) {
+export default function ExperienceForm({
+  initialData,
+  onSubmit,
+  onCancel,
+  isEditing,
+}) {
   const [form, setForm] = useState({
-    title: "",
-    category: "General",
-    body: "",
+    title: '',
+    category: 'General',
+    body: '',
   });
 
   useEffect(() => {
     if (initialData) {
       setForm({
-        title: initialData.title || "",
-        category: initialData.category || "General",
-        body: initialData.body || "",
+        title: initialData.title || '',
+        category: initialData.category || 'General',
+        body: initialData.body || '',
+      });
+    } else {
+      setForm({
+        title: '',
+        category: 'General',
+        body: '',
       });
     }
   }, [initialData]);
@@ -23,17 +34,18 @@ export default function ExperienceForm({ initialData, onSubmit, onCancel, isEdit
     e.preventDefault();
     onSubmit(form);
     if (!isEditing) {
-      setForm({ title: "", category: "General", body: "" });
+      setForm({ title: '', category: 'General', body: '' });
     }
   };
 
   return (
     <div className="card experience-form-card">
-      <h3>{isEditing ? "Edit Experience" : "Share Your Experience"}</h3>
+      <h3>{isEditing ? 'Edit Experience' : 'Share Your Experience'}</h3>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Title</label>
+          <label htmlFor="experience-title">Title</label>
           <input
+            id="experience-title"
             type="text"
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
@@ -42,8 +54,9 @@ export default function ExperienceForm({ initialData, onSubmit, onCancel, isEdit
           />
         </div>
         <div className="form-group">
-          <label>Category</label>
+          <label htmlFor="experience-category">Category</label>
           <select
+            id="experience-category"
             value={form.category}
             onChange={(e) => setForm({ ...form, category: e.target.value })}
           >
@@ -58,8 +71,9 @@ export default function ExperienceForm({ initialData, onSubmit, onCancel, isEdit
           </select>
         </div>
         <div className="form-group">
-          <label>Description</label>
+          <label htmlFor="experience-body">Description</label>
           <textarea
+            id="experience-body"
             value={form.body}
             onChange={(e) => setForm({ ...form, body: e.target.value })}
             placeholder="Tell us about your interview experience..."
@@ -68,10 +82,14 @@ export default function ExperienceForm({ initialData, onSubmit, onCancel, isEdit
         </div>
         <div className="experience-form-actions">
           <button type="submit" className="btn btn-primary">
-            {isEditing ? "Save Changes" : "Share Experience"}
+            {isEditing ? 'Save Changes' : 'Share Experience'}
           </button>
           {isEditing && onCancel && (
-            <button type="button" className="btn btn-secondary" onClick={onCancel}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={onCancel}
+            >
               Cancel
             </button>
           )}

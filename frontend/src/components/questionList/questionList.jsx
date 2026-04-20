@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export default function QuestionList({ questions, onDelete, onEdit, onReply }) {
   const [replyText, setReplyText] = useState({});
-  const currentUser = JSON.parse(localStorage.getItem("user") || "null");
+  const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
 
   const requireLogin = () => {
-    alert("Please log in to reply to posts.");
-    window.location.hash = "#/auth";
+    alert('Please log in to reply to posts.');
+    window.location.hash = '#/auth';
   };
 
   const handleReply = (questionId) => {
@@ -20,12 +20,12 @@ export default function QuestionList({ questions, onDelete, onEdit, onReply }) {
     if (!text?.trim()) return;
 
     onReply(questionId, text);
-    setReplyText({ ...replyText, [questionId]: "" });
+    setReplyText({ ...replyText, [questionId]: '' });
   };
 
   if (questions.length === 0) {
     return (
-      <p style={{ textAlign: "center", color: "#a8a29e", marginTop: "2rem" }}>
+      <p style={{ textAlign: 'center', color: '#a8a29e', marginTop: '2rem' }}>
         No questions found in this category.
       </p>
     );
@@ -41,14 +41,14 @@ export default function QuestionList({ questions, onDelete, onEdit, onReply }) {
             <span className="category-badge">📁 {q.category}</span>
           )}
 
-          <p><strong>Q:</strong> {q.question}</p>
+          <p>
+            <strong>Q:</strong> {q.question}
+          </p>
 
           <div className="card-meta">
             <span>👤 {q.author}</span>
             <span>
-              📅 {q.createdAt
-                ? new Date(q.createdAt).toLocaleDateString()
-                : ""}
+              📅 {q.createdAt ? new Date(q.createdAt).toLocaleDateString() : ''}
             </span>
           </div>
 
@@ -85,7 +85,7 @@ export default function QuestionList({ questions, onDelete, onEdit, onReply }) {
               <input
                 type="text"
                 placeholder="Write a reply..."
-                value={replyText[q._id] || ""}
+                value={replyText[q._id] || ''}
                 onChange={(e) =>
                   setReplyText({ ...replyText, [q._id]: e.target.value })
                 }

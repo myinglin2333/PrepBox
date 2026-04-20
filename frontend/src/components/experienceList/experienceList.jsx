@@ -1,21 +1,27 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import "./experienceList.css";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import './experienceList.css';
 
-export default function ExperienceList({ experiences, onDelete, onEdit, onReply, onLike }) {
+export default function ExperienceList({
+  experiences,
+  onDelete,
+  onEdit,
+  onReply,
+  onLike,
+}) {
   const [replyText, setReplyText] = useState({});
-  const currentUser = JSON.parse(localStorage.getItem("user") || "null");
+  const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
 
   const handleReply = (expId) => {
     const text = replyText[expId];
     if (!text?.trim()) return;
     onReply(expId, text);
-    setReplyText({ ...replyText, [expId]: "" });
+    setReplyText({ ...replyText, [expId]: '' });
   };
 
   if (experiences.length === 0) {
     return (
-      <p style={{ textAlign: "center", color: "#a8a29e", marginTop: "2rem" }}>
+      <p style={{ textAlign: 'center', color: '#a8a29e', marginTop: '2rem' }}>
         No experiences found in this category.
       </p>
     );
@@ -42,17 +48,24 @@ export default function ExperienceList({ experiences, onDelete, onEdit, onReply,
 
             <div className="card-actions">
               <button
-                className={`btn btn-small like-btn ${isLiked ? "liked" : ""}`}
+                className={`btn btn-small like-btn ${isLiked ? 'liked' : ''}`}
                 onClick={() => onLike(exp._id)}
               >
-                {isLiked ? "❤️" : "🤍"} {likes.length} {likes.length === 1 ? "Like" : "Likes"}
+                {isLiked ? '❤️' : '🤍'} {likes.length}{' '}
+                {likes.length === 1 ? 'Like' : 'Likes'}
               </button>
               {currentUser && currentUser.username === exp.author && (
                 <>
-                  <button className="btn btn-secondary btn-small" onClick={() => onEdit(exp)}>
+                  <button
+                    className="btn btn-secondary btn-small"
+                    onClick={() => onEdit(exp)}
+                  >
                     Edit
                   </button>
-                  <button className="btn btn-danger btn-small" onClick={() => onDelete(exp._id)}>
+                  <button
+                    className="btn btn-danger btn-small"
+                    onClick={() => onDelete(exp._id)}
+                  >
                     Delete
                   </button>
                 </>
@@ -71,7 +84,7 @@ export default function ExperienceList({ experiences, onDelete, onEdit, onReply,
                 <input
                   type="text"
                   placeholder="Write a reply..."
-                  value={replyText[exp._id] || ""}
+                  value={replyText[exp._id] || ''}
                   onChange={(e) =>
                     setReplyText({ ...replyText, [exp._id]: e.target.value })
                   }

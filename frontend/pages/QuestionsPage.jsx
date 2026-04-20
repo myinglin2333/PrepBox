@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import QuestionForm from "../src/components/questionForm/questionForm.jsx";
-import QuestionList from "../src/components/questionList/questionList.jsx";
-import API_BASE from "../src/config/api.js";
+import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import QuestionForm from '../src/components/questionForm/questionForm.jsx';
+import QuestionList from '../src/components/questionList/questionList.jsx';
+import API_BASE from '../src/config/api.js';
 
 export default function QuestionsPage() {
   const [questions, setQuestions] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [showForm, setShowForm] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState(null);
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function QuestionsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
 
   // Fetch
   const fetchQuestions = async () => {
@@ -24,7 +24,7 @@ export default function QuestionsPage() {
       const data = await res.json();
       setQuestions(data);
     } catch (err) {
-      console.error("Failed to fetch questions:", err);
+      console.error('Failed to fetch questions:', err);
     }
   };
 
@@ -39,58 +39,64 @@ export default function QuestionsPage() {
 
   // Scroll back to the top when switch pages
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth"});
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
 
   // Add
   const handleAdd = async (formData) => {
     try {
       const res = await fetch(`${API_BASE}/api/questions`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, author: user?.username || "anonymous" }),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          author: user?.username || 'anonymous',
+        }),
       });
 
       const data = await res.json();
       setQuestions((prev) => [data, ...prev]);
       setShowForm(false);
     } catch (err) {
-      console.error("Failed to add question:", err);
+      console.error('Failed to add question:', err);
     }
   };
 
   // Delete
   const handleDelete = async (id) => {
     try {
-      await fetch(`${API_BASE}/api/questions/${id}`, { method: "DELETE" });
+      await fetch(`${API_BASE}/api/questions/${id}`, { method: 'DELETE' });
       setQuestions(questions.filter((q) => q._id !== id));
     } catch (err) {
-      console.error("Failed to delete:", err);
+      console.error('Failed to delete:', err);
     }
   };
 
   // Edit
   const handleEdit = async (updatedData) => {
     try {
-      const res = await fetch(`${API_BASE}/api/questions/${editingQuestion._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedData),
-      });
-      
+      const res = await fetch(
+        `${API_BASE}/api/questions/${editingQuestion._id}`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedData),
+        }
+      );
+
       await fetchQuestions();
       setEditingQuestion(null);
-      alert("Your post has been updated successfully.");
+      alert('Your post has been updated successfully.');
     } catch (err) {
-      console.error("Failed to update:", err);
+      console.error('Failed to update:', err);
     }
   };
 
   // Login
   const handleAddClick = () => {
     if (!user) {
-      alert("Please log in to perform this action.");
-      navigate("/auth");
+      alert('Please log in to perform this action.');
+      navigate('/auth');
       return;
     }
     setEditingQuestion(null);
@@ -100,30 +106,30 @@ export default function QuestionsPage() {
   // Reply to post
   const handleReply = async (questionId, replyText) => {
     if (!user) {
-      alert("Please log in to perform this action.");
-      window.location.hash = "#/auth";
+      alert('Please log in to perform this action.');
+      window.location.hash = '#/auth';
       return;
     }
 
     try {
       await fetch(`${API_BASE}/api/questions/${questionId}/answers`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           body: replyText,
-          author: user?.username || "anonymous",
+          author: user?.username || 'anonymous',
         }),
       });
 
       fetchQuestions();
     } catch (err) {
-      console.error("Failed to add reply:", err);
+      console.error('Failed to add reply:', err);
     }
   };
 
   // Filter
   const filteredQuestions =
-    selectedCategory === "All"
+    selectedCategory === 'All'
       ? questions
       : questions.filter((q) => q.category === selectedCategory);
 
@@ -140,29 +146,31 @@ export default function QuestionsPage() {
         <h1>Interview Questions</h1>
         {!editingQuestion && (
           <button className="btn btn-primary" onClick={handleAddClick}>
-            {showForm ? "Cancel" : "+ Add a Question"}
+            {showForm ? 'Cancel' : '+ Add a Question'}
           </button>
         )}
       </div>
 
       {/* Category */}
       <div className="category-filter">
-        {["All", 
-          "Behavioral", 
-          "Technical", 
-          "System Design", 
-          "General",
-          "Data Science",
-          "Product Management",
-          "Consulting",
-          "Finance",
-          "Marketing",
-          "Internship",
-          "New Grad",
-          "Other"].map((cat) => (
+        {[
+          'All',
+          'Behavioral',
+          'Technical',
+          'System Design',
+          'General',
+          'Data Science',
+          'Product Management',
+          'Consulting',
+          'Finance',
+          'Marketing',
+          'Internship',
+          'New Grad',
+          'Other',
+        ].map((cat) => (
           <button
             key={cat}
-            className={`filter-chip ${selectedCategory === cat ? "active" : ""}`}
+            className={`filter-chip ${selectedCategory === cat ? 'active' : ''}`}
             onClick={() => setSelectedCategory(cat)}
           >
             {cat}
@@ -199,14 +207,14 @@ export default function QuestionsPage() {
 
           window.scrollTo({
             top: 0,
-            behavior: "smooth",
-          })
+            behavior: 'smooth',
+          });
         }}
         onReply={handleReply}
       />
 
       {/* Pagination */}
-      <div style={{ textAlign: "center", marginTop: "2rem" }}>
+      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
         <button
           className="btn btn-secondary btn-small"
           disabled={currentPage === 1}
@@ -215,9 +223,7 @@ export default function QuestionsPage() {
           Prev
         </button>
 
-        <span style={{ margin: "0 1rem" }}>
-          Page {currentPage}
-        </span>
+        <span style={{ margin: '0 1rem' }}>Page {currentPage}</span>
 
         <button
           className="btn btn-secondary btn-small"

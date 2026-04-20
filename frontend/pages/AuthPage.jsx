@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import API_BASE from "../src/config/api";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import API_BASE from '../src/config/api';
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [form, setForm] = useState({ username: '', email: '', password: '' });
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
@@ -16,31 +16,36 @@ export default function AuthPage() {
     e.preventDefault();
     setMessage(null);
 
-    const endpoint = isLogin ? `${API_BASE}/api/auth/login` : `${API_BASE}/api/auth/register`;
+    const endpoint = isLogin
+      ? `${API_BASE}/api/auth/login`
+      : `${API_BASE}/api/auth/register`;
     const body = isLogin
       ? { email: form.email, password: form.password }
       : form;
 
     try {
       const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
       const data = await res.json();
 
       if (!res.ok) {
-        setMessage({ type: "error", text: data.error });
+        setMessage({ type: 'error', text: data.error });
         return;
       }
 
-      setMessage({ type: "success", text: data.message });
-      localStorage.setItem("user", JSON.stringify(data));
+      setMessage({ type: 'success', text: data.message });
+      localStorage.setItem('user', JSON.stringify(data));
 
       // Redirect to experiences page after successful login/register
-      setTimeout(() => navigate("/experiences"), 500);
+      setTimeout(() => navigate('/experiences'), 500);
     } catch (err) {
-      setMessage({ type: "error", text: "Something went wrong. Make sure the backend server is running." });
+      setMessage({
+        type: 'error',
+        text: 'Something went wrong. Make sure the backend server is running.',
+      });
     }
   };
 
@@ -49,13 +54,13 @@ export default function AuthPage() {
       <div className="auth-card">
         <div className="auth-tabs">
           <button
-            className={`auth-tab ${isLogin ? "active" : ""}`}
+            className={`auth-tab ${isLogin ? 'active' : ''}`}
             onClick={() => setIsLogin(true)}
           >
             Login
           </button>
           <button
-            className={`auth-tab ${!isLogin ? "active" : ""}`}
+            className={`auth-tab ${!isLogin ? 'active' : ''}`}
             onClick={() => setIsLogin(false)}
           >
             Register
@@ -63,7 +68,9 @@ export default function AuthPage() {
         </div>
 
         {message && (
-          <div className={`message message-${message.type}`}>{message.text}</div>
+          <div className={`message message-${message.type}`}>
+            {message.text}
+          </div>
         )}
 
         <form onSubmit={handleSubmit}>
@@ -102,13 +109,27 @@ export default function AuthPage() {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary" style={{ width: "100%" }}>
-            {isLogin ? "Login" : "Create Account"}
+          <button
+            type="submit"
+            className="btn btn-primary"
+            style={{ width: '100%' }}
+          >
+            {isLogin ? 'Login' : 'Create Account'}
           </button>
         </form>
 
-        <div style={{ textAlign: "center", marginTop: "1rem", fontSize: "0.85rem", color: "#888" }}>
-          <p>Demo: use <strong>user1@example.com</strong> / <strong>123456</strong></p>
+        <div
+          style={{
+            textAlign: 'center',
+            marginTop: '1rem',
+            fontSize: '0.85rem',
+            color: '#888',
+          }}
+        >
+          <p>
+            Demo: use <strong>user1@example.com</strong> /{' '}
+            <strong>123456</strong>
+          </p>
         </div>
       </div>
     </div>
