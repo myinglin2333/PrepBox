@@ -5,7 +5,6 @@ export default function QuestionForm({ initialData, onSubmit, onCancel, isEditin
   const [form, setForm] = useState({
     title: "",
     question: "",
-    answer: "",
     category: "General",
   });
 
@@ -14,8 +13,13 @@ export default function QuestionForm({ initialData, onSubmit, onCancel, isEditin
       setForm({
         title: initialData.title || "",
         question: initialData.question || "",
-        answer: initialData.answer || "",
         category: initialData.category || "General",
+      });
+    } else {
+      setForm({
+        title: "",
+        question: "",
+        category: "General",
       });
     }
   }, [initialData]);
@@ -24,9 +28,24 @@ export default function QuestionForm({ initialData, onSubmit, onCancel, isEditin
     e.preventDefault();
     onSubmit(form);
     if (!isEditing) {
-      setForm({ title: "", question: "", answer: "", category: "General" });
+      setForm({ title: "", question: "", category: "General" });
     }
   };
+
+  const categories = [
+    "Behavioral",
+    "Technical",
+    "System Design",
+    "General",
+    "Data Science",
+    "Product Management",
+    "Consulting",
+    "Finance",
+    "Marketing",
+    "Internship",
+    "New Grad",
+    "Other"
+  ];
 
   return (
     <div className="card">
@@ -55,34 +74,25 @@ export default function QuestionForm({ initialData, onSubmit, onCancel, isEditin
         </div>
 
         <div className="form-group">
-          <label>Answer</label>
-          <textarea
-            value={form.answer}
-            onChange={(e) => setForm({ ...form, answer: e.target.value })}
-            placeholder="Optional sample answer..."
-          />
-        </div>
-
-        <div className="form-group">
           <label>Category</label>
           <select
             value={form.category}
             onChange={(e) => setForm({ ...form, category: e.target.value })}
           >
-            <option>Behavioral</option>
-            <option>Technical</option>
-            <option>System Design</option>
-            <option>General</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
           </select>
         </div>
 
-        {/* ⭐ 和组员完全一致 */}
         <div className="experience-form-actions">
           <button type="submit" className="btn btn-primary">
-            {isEditing ? "Save Changes" : "Add Question"}
+            {isEditing ? "Save Changes" : "Add a Question"}
           </button>
 
-          {isEditing && (
+          {onCancel && (
             <button
               type="button"
               className="btn btn-secondary"
