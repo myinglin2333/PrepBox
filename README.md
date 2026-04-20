@@ -83,8 +83,6 @@ PrepBox/
 │ ├── src/
 │ │ ├── components/              # UI components
 │ │ │ ├── Navbar/                # Navigation bar
-│ │ │ ├── authForm/              # Login form component
-│ │ │ ├── registerForm/          # Register form component
 │ │ │ ├── experienceForm/        # Create/Edit experience
 │ │ │ ├── experienceList/        # Experience list display
 │ │ │ ├── questionForm/          # Create/Edit question
