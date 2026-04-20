@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './experienceList.css';
 
 export default function ExperienceList({
   experiences,
