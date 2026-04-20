@@ -42,7 +42,7 @@ The goal of PrepBox is to:
 - Add interview questions
 - Edit and delete questions
 - Browse questions by category
-- View sample answers
+- Reply to questions
 
 ### Experiences & Replies
 - Share interview experiences
