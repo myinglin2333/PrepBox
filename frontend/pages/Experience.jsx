@@ -34,6 +34,11 @@ export default function Experience() {
     setCurrentPage(1);
   }, [selectedCategory]);
 
+  // Scroll back to the top when switch pages
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth"});
+  }, [currentPage]);
+
   const getUser = () => JSON.parse(localStorage.getItem("user") || "null");
 
   const fetchExperiences = async () => {
@@ -83,7 +88,7 @@ export default function Experience() {
   const handleUpdate = async (formData) => {
     if (!requireAuth()) return;
     try {
-      const res = await fetch(`/api/experiences/${editingExperience._id}`, {
+      const res = await fetch(`${API_BASE}/api/experiences/${editingExperience._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
