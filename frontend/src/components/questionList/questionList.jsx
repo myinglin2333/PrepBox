@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function QuestionList({ questions, onDelete, onEdit, onReply }) {
   const [replyText, setReplyText] = useState({});
