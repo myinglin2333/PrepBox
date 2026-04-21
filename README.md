@@ -17,9 +17,10 @@ meiye.l@northeastern.edu
 ### Links
 - [PrepBox](https://prepbox-frontend.onrender.com/)
 - [Design Document](./documents/designDocument.pdf)
-- [Video Demonstration](https://youtu.be/IjTaETGWBCk?feature=shared)
+- [Video Demonstration](https://youtu.be/n4paxIwbJ30?si=yxNnxYe7gtZy-TUN)
 - [Google Slides](./documents/prepBoxSlides.pdf)
 - [Usability Study Report - Helly Diyora](https://docs.google.com/document/d/1rJ8sr1MvCV5PEqRZ-30TnZvg93BG97YEbzdeFhkEYgY/edit?usp=sharing)
+- [Usability Study Report - Lili Mei Ye ](https://docs.google.com/document/d/1PzFuiPrSug56aQeVP4YD_wgqAT6rjVbQcGdw_gD49BY/edit?usp=drivesdk)
 
 ## Project Objective
 PrepBox is a web application designed to help students and job seekers prepare for interviews.
