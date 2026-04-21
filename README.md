@@ -19,6 +19,7 @@ meiye.l@northeastern.edu
 - [Design Document](./documents/designDocument.pdf)
 - [Video Demonstration](https://youtu.be/IjTaETGWBCk?feature=shared)
 - [Google Slides](./documents/prepBoxSlides.pdf)
+- [Usability Study Report - Helly Diyora](https://docs.google.com/document/d/1rJ8sr1MvCV5PEqRZ-30TnZvg93BG97YEbzdeFhkEYgY/edit?usp=sharing)
 
 ## Project Objective
 PrepBox is a web application designed to help students and job seekers prepare for interviews.
